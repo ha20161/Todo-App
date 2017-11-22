@@ -50,11 +50,12 @@ public class TodoDetailActivity extends AppCompatActivity {
             mTodoIndex = savedInstanceState.getInt(TODO_INDEX, 0);
         }
 
-    /*    //initialize member TextView so we can manipulate it later
+        //initialize member TextView so we can manipulate it later
         TextView TodoDetailTextView;
-        TodoDetailTextView = (TextView) findViewById(R.id.textViewTodoDetail); */
+        TodoDetailTextView = (TextView) findViewById(R.id.textViewTodoDetail);
 
         //get the intent extra int for the todos index
+        //index for todo detail to be displayed
         int mTodoIndex = getIntent().getIntExtra(TODO_INDEX,0);
         updateTextViewTodoDetail(mTodoIndex);
 

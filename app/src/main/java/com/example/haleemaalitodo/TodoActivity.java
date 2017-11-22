@@ -28,6 +28,7 @@ public class TodoActivity extends AppCompatActivity {
     // the alternative is to abstract view data to a ViewModel which can be in scope in all
     // Activity states and more suitable for larger amounts of data
     private static final String TODO_INDEX = "com.example.todoIndex";
+
     // override to write the value of mTodoIndex into the Bundle with TODO_INDEX as its key
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -52,6 +53,10 @@ public class TodoActivity extends AppCompatActivity {
         // check for saved state due to changes such as rotation or back button
         // and restore any saved state such as the todo index
         if (savedInstanceState != null){
+
+            //using log message to determine if previous state information is available when activity starts
+            Log.i(TAG, "onCreate() Restoring previous state");
+            /* restore state */
             mTodoIndex = savedInstanceState.getInt(TODO_INDEX, 0);
         }
 
@@ -105,6 +110,7 @@ public class TodoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Note, the child class being called has a static method determining the parameter
                 // to be passed to it in the intent object
+                // Explicit intent
                 Intent intent = TodoDetailActivity.newIntent(TodoActivity.this,mTodoIndex);
 
                 // Second param requestCode identifies the call as there could be many "intents"
@@ -130,16 +136,19 @@ public class TodoActivity extends AppCompatActivity {
             if(intent != null) {
 
                 // data in intent from child activity
-                boolean isTodoComplete = intent.getBooleanExtra(IS_TODO_COMPLETE, false); //Maybe string??
+                boolean isTodoComplete = intent.getBooleanExtra(IS_TODO_COMPLETE, false);
                 updateTodoComplete(isTodoComplete);
             }
             else {
 
-                Toast.makeText(this, R.string.request_code_mismatch, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.back_button_pressed, Toast.LENGTH_SHORT).show();
             }
         }
+        else {
 
-    }
+            Toast.makeText(this, R.string.request_code_mismatch, Toast.LENGTH_SHORT).show();
+        }
+    } 
 
     private void updateTodoComplete(boolean is_todo_complete){
 
